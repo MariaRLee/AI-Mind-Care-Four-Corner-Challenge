@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI-Mind Care 四角號碼漢字挑戰：以中英雙語學習王雲五四角號碼檢字法。" />
+  <title>AI-Mind Care｜四角號碼漢字挑戰</title>
+  <style>
+    :root {
+      --bg: #f3f6f3;
+      --card: #ffffff;
+      --ink: #243229;
+      --muted: #66756b;
+      --line: #dce5de;
+      --accent: #52745f;
+      --accent-dark: #355341;
+      --accent-soft: #e8f1eb;
+      --gold: #b88633;
+      --good: #26784a;
+      --good-bg: #e8f6ee;
+      --bad: #a33c3c;
+      --bad-bg: #fff0f0;
+      --shadow: 0 14px 36px rgba(44, 67, 52, 0.10);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(155, 191, 166, 0.20), transparent 30%),
+        radial-gradient(circle at 90% 15%, rgba(232, 205, 143, 0.18), transparent 27%),
+        var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.55;
+    }
+
+    button, select { font: inherit; }
+
+    button {
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    a { color: var(--accent-dark); }
+
+    .app {
+      width: min(1120px, calc(100% - 28px));
+      margin: 18px auto 42px;
+    }
+
+    .topbar {
+      position: relative;
+      padding: 26px 28px 24px;
+      border: 1px solid rgba(255,255,255,0.75);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.90);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+      padding-right: 0;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 15px;
+      color: white;
+      font-weight: 800;
+      background: linear-gradient(135deg, #759781, #3f6750);
+      box-shadow: 0 8px 18px rgba(63,103,80,0.25);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.65rem, 4vw, 2.55rem);
+      line-height: 1.18;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .home-link {
+      flex: 0 0 auto;
+      align-self: flex-start;
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--accent-dark);
+      background: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .segmented {
+      display: inline-flex;
+      padding: 4px;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f8faf8;
+    }
+
+    .segmented button {
+      min-height: 39px;
+      padding: 7px 13px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font-weight: 700;
+    }
+
+    .segmented button.active {
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .privacy-note {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.93fr 1.07fr;
+      gap: 18px;
+      margin-top: 18px;
+      align-items: start;
+    }
+
+    .card {
+      border: 1px solid rgba(220,229,222,0.95);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.96);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-inner { padding: 24px; }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+    }
+
+    .section-title .badge {
+      display: inline-grid;
+      place-items: center;
+      min-width: 31px;
+      height: 31px;
+      border-radius: 10px;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .corner-order {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .corner-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fbfcfb;
+    }
+
+    .corner-num {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      color: white;
+      background: var(--accent);
+      font-weight: 800;
+    }
+
+    .shape-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 17px;
+    }
+
+    .shape-card {
+      min-height: 112px;
+      padding: 10px 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .shape-digit {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--accent-dark);
+    }
+
+    .shape-symbol {
+      display: block;
+      margin: 1px 0;
+      font-family: "Noto Serif TC", "PMingLiU", serif;
+      font-size: 1.65rem;
+      line-height: 1.2;
+    }
+
+    .shape-name {
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.25;
+    }
+
+    .example-box {
+      display: grid;
+      grid-template-columns: 124px 1fr;
+      gap: 17px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #eff6f1, #fbf8ee);
+      border: 1px solid #dce8df;
+    }
+
+    .demo-char-wrap, .character-stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border: 1px solid #d4dfd7;
+      border-radius: 20px;
+      background:
+        linear-gradient(90deg, transparent 49.5%, rgba(82,116,95,0.10) 49.5%, rgba(82,116,95,0.10) 50.5%, transparent 50.5%),
+        linear-gradient(transparent 49.5%, rgba(82,116,95,0.10) 49.5%, rgba(82,116,95,0.10) 50.5%, transparent 50.5%),
+        #fff;
+    }
+
+    .demo-char {
+      font-family: "Noto Serif TC", "PMingLiU", serif;
+      font-size: 5rem;
+      line-height: 1;
+    }
+
+    .corner-label {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--accent-dark);
+      font-weight: 900;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.14);
+    }
+
+    .corner-label.tl { top: 6px; left: 6px; }
+    .corner-label.tr { top: 6px; right: 6px; }
+    .corner-label.bl { bottom: 6px; left: 6px; }
+    .corner-label.br { bottom: 6px; right: 6px; }
+
+    .example-code {
+      margin-top: 5px;
+      color: var(--accent-dark);
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+
+    .tip {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--gold);
+      border-radius: 10px;
+      color: #6f5525;
+      background: #fff8e9;
+      font-size: 0.91rem;
+    }
+
+    .game-card {
+      min-height: auto;
+    }
+
+    .start-panel {
+      display: grid;
+      place-items: center;
+      min-height: 430px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .start-icon {
+      font-size: 3.4rem;
+      filter: drop-shadow(0 6px 8px rgba(0,0,0,0.09));
+    }
+
+    .start-panel h2 {
+      margin: 8px 0 6px;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+
+    .start-panel p {
+      max-width: 540px;
+      margin: 0 auto 18px;
+      color: var(--muted);
+    }
+
+    .mode-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .primary-btn, .secondary-btn {
+      min-height: 48px;
+      padding: 11px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+    }
+
+    .primary-btn {
+      border: 1px solid var(--accent);
+      color: white;
+      background: var(--accent);
+      box-shadow: 0 8px 16px rgba(82,116,95,0.22);
+    }
+
+    .primary-btn:hover { background: var(--accent-dark); }
+
+    .secondary-btn {
+      border: 1px solid var(--line);
+      color: var(--accent-dark);
+      background: white;
+    }
+
+    .game-panel {
+      display: none;
+      padding: 14px 16px 18px;
+    }
+
+    .game-panel.active { display: block; }
+
+    .game-status {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .progress-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e8ede9;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #6f967d, #b49a55);
+      transition: width .25s ease;
+    }
+
+    .score-chip {
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fbfcfb;
+      font-size: 0.86rem;
+      white-space: nowrap;
+    }
+
+    .character-stage {
+      width: min(250px, 62vw);
+      margin: 6px auto 0;
+      border-radius: 22px;
+    }
+
+    .character {
+      font-family: "Noto Serif TC", "PMingLiU", serif;
+      font-size: clamp(6.3rem, 15vw, 9.2rem);
+      line-height: 1;
+      transform: translateY(-1px);
+    }
+
+    .corner-seq {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      color: white;
+      background: rgba(53,83,65,.92);
+      font-size: .9rem;
+      font-weight: 900;
+      box-shadow: 0 3px 10px rgba(0,0,0,.18);
+    }
+
+    .corner-seq.tl { top: 9px; left: 9px; }
+    .corner-seq.tr { top: 9px; right: 9px; }
+    .corner-seq.bl { bottom: 9px; left: 9px; }
+    .corner-seq.br { bottom: 9px; right: 9px; }
+
+    .word-info {
+      margin: 8px 0 2px;
+      text-align: center;
+    }
+
+    .pinyin {
+      color: var(--accent-dark);
+      font-size: 1.08rem;
+      font-weight: 800;
+    }
+
+    .meaning {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .answer-label {
+      margin: 10px 0 6px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    .answer-slots {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      max-width: 390px;
+      margin: 0 auto;
+    }
+
+    .answer-slot {
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: #fbfcfb;
+    }
+
+    .answer-slot.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(82,116,95,0.12);
+    }
+
+    .slot-name {
+      align-self: end;
+      color: var(--muted);
+      font-size: .67rem;
+      line-height: 1.1;
+    }
+
+    .slot-value {
+      align-self: start;
+      min-height: 28px;
+      color: var(--accent-dark);
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 7px;
+      max-width: 420px;
+      margin: 10px auto 0;
+    }
+
+    .digit-btn {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: var(--ink);
+      background: white;
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .digit-btn:hover, .digit-btn:focus-visible {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .game-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 7px;
+      max-width: 420px;
+      margin: 8px auto 0;
+    }
+
+    .game-actions button {
+      min-height: 40px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    .feedback {
+      display: none;
+      max-width: 460px;
+      margin: 8px auto 0;
+      padding: 11px 12px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { color: var(--good); background: var(--good-bg); }
+    .feedback.bad { color: var(--bad); background: var(--bad-bg); }
+
+    .feedback-code {
+      display: block;
+      margin: 3px 0;
+      font-size: 1.32rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+
+    .next-btn {
+      display: none;
+      width: min(460px, 100%);
+      min-height: 48px;
+      margin: 10px auto 0;
+    }
+
+    .next-btn.show { display: block; }
+
+    .result-panel {
+      display: none;
+      min-height: 570px;
+      padding: 28px 22px;
+      text-align: center;
+    }
+
+    .result-panel.active {
+      display: grid;
+      place-items: center;
+    }
+
+    .result-content { max-width: 550px; }
+
+    .result-emoji { font-size: 4rem; }
+
+    .result-percent {
+      margin: 5px 0;
+      color: var(--accent-dark);
+      font-size: clamp(3.2rem, 12vw, 5.5rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .result-message {
+      margin: 8px 0 4px;
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .result-sub {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .library {
+      margin-top: 18px;
+    }
+
+    details.card summary {
+      padding: 19px 24px;
+      cursor: pointer;
+      list-style: none;
+      font-weight: 900;
+    }
+
+    details.card summary::-webkit-details-marker { display: none; }
+
+    details.card summary::after {
+      content: "＋";
+      float: right;
+      color: var(--accent);
+      font-size: 1.25rem;
+    }
+
+    details.card[open] summary::after { content: "－"; }
+
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      padding: 0 24px 24px;
+    }
+
+    .library-item {
+      padding: 11px 7px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      text-align: center;
+      background: #fbfcfb;
+    }
+
+    .library-char {
+      display: block;
+      font-family: "Noto Serif TC", "PMingLiU", serif;
+      font-size: 2.25rem;
+      line-height: 1.1;
+    }
+
+    .library-code {
+      display: block;
+      color: var(--accent-dark);
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    .library-meta {
+      display: block;
+      color: var(--muted);
+      font-size: .71rem;
+      line-height: 1.25;
+    }
+
+    footer {
+      padding: 20px 10px 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: .82rem;
+    }
+
+    .lang-zh, .lang-en { display: inline; }
+    body.lang-zh .lang-en { display: none; }
+    body.lang-en .lang-zh { display: none; }
+    body.lang-en .bilingual-sep,
+    body.lang-zh .bilingual-sep { display: none; }
+
+    .confetti-piece {
+      position: fixed;
+      z-index: 9999;
+      width: 10px;
+      height: 16px;
+      top: -20px;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    .firework {
+      position: fixed;
+      z-index: 9999;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: burst 1.15s ease-out forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translate3d(var(--x), 110vh, 0) rotate(900deg); opacity: .1; }
+    }
+
+    @keyframes burst {
+      0% { transform: translate(0,0) scale(1); opacity: 1; }
+      100% { transform: translate(var(--x), var(--y)) scale(.2); opacity: 0; }
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .game-card {
+        min-height: auto;
+        position: sticky;
+        top: 10px;
+      }
+      .start-panel, .result-panel { min-height: 420px; }
+      .library-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 620px) {
+      .app {
+        width: min(100% - 14px, 1120px);
+        margin-top: 7px;
+      }
+
+      .topbar { padding: 16px 14px 14px; }
+      .hero-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .brand { align-items: flex-start; }
+      .brand-mark { width: 38px; height: 38px; border-radius: 12px; }
+      h1 {
+        font-size: 1.05rem;
+        line-height: 1.2;
+      }
+      .subtitle {
+        margin-top: 6px;
+        font-size: .82rem;
+        line-height: 1.4;
+      }
+
+      .home-link {
+        padding: 7px 11px;
+        font-size: .84rem;
+      }
+
+      .toolbar {
+        align-items: flex-start;
+        margin-top: 12px;
+      }
+      .privacy-note { width: 100%; margin-left: 0; font-size: .84rem; }
+
+      .card-inner { padding: 18px 15px; }
+      .layout { gap: 14px; }
+      .game-card {
+        order: -1;
+        position: static;
+      }
+      .corner-order {
+        gap: 7px;
+      }
+      .corner-item {
+        min-height: 36px;
+        padding: 6px 10px;
+      }
+      .shape-grid { grid-template-columns: repeat(2, 1fr); }
+      .shape-card { min-height: 92px; }
+      .shape-name { font-size: .72rem; }
+      .example-box { grid-template-columns: 88px 1fr; padding: 12px; }
+      .demo-char { font-size: 3.4rem; }
+
+      .game-panel { padding: 12px 10px 16px; }
+      .game-status { grid-template-columns: 1fr auto auto; }
+      .character-stage { width: min(220px, 62vw); }
+      .character { font-size: clamp(5.3rem, 20vw, 7.3rem); }
+      .corner-seq {
+        width: 28px;
+        height: 28px;
+        font-size: .8rem;
+      }
+      .word-info { margin-top: 6px; }
+      .pinyin { font-size: 1rem; }
+      .meaning { font-size: .88rem; }
+      .answer-slots { gap: 5px; }
+      .answer-slot { min-height: 54px; }
+      .slot-name { font-size: .62rem; }
+      .slot-value { font-size: 1.2rem; }
+      .keypad { gap: 6px; }
+      .digit-btn { min-height: 42px; }
+      .game-actions { gap: 6px; }
+      .game-actions button { font-size: .8rem; padding: 8px 4px; }
+      .library-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0 14px 18px; }
+      details.card summary { padding: 17px 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="lang-zh">
+  <main class="app">
+    <header class="topbar">
+      <div class="hero-head">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">四角</div>
+          <div>
+            <h1>
+              <span class="lang-zh">AI-Mind Care｜四角號碼漢字挑戰</span>
+              <span class="bilingual-sep"> · </span>
+              <span class="lang-en">AI-Mind Care: Four Corner Challenge</span>
+            </h1>
+            <p class="subtitle">
+              <span class="lang-zh">看四個角，找四個數字；從字形開始認識漢字。</span>
+              <span class="bilingual-sep">｜</span>
+              <span class="lang-en">Read four corners, find four digits, and discover Chinese characters through shape.</span>
+            </p>
+          </div>
+        </div>
+        <a class="home-link" href="https://www.hyloveclub.com" rel="noopener">Home｜首頁</a>
+      </div>
+
+      <div class="toolbar">
+        <div class="segmented" role="group" aria-label="Language">
+          <button type="button" data-lang="zh" class="active">中文</button>
+          <button type="button" data-lang="en">English</button>
+        </div>
+        <div class="privacy-note">
+          🔒 <span class="lang-zh">本機練習，不上傳、不追蹤、不使用分析工具。</span>
+          <span class="bilingual-sep">｜</span>
+          <span class="lang-en">Local practice only. No uploads, tracking, or analytics.</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="layout">
+      <article class="card">
+        <div class="card-inner">
+          <h2 class="section-title">
+            <span class="badge">1</span>
+            <span class="lang-zh">先認識四角號碼</span>
+            <span class="bilingual-sep">｜</span>
+            <span class="lang-en">Learn the Four-Corner Method</span>
+          </h2>
+          <p class="lead">
+            <span class="lang-zh">四角號碼是依漢字外形查字的方法：看左上、右上、左下、右下四個角，再把筆形轉成0–9。</span>
+            <span class="bilingual-sep"> </span>
+            <span class="lang-en">The Four-Corner Method reads a character by looking at the upper-left, upper-right, lower-left, and lower-right corners, then converting those shapes into digits 0–9.</span>
+          </p>
+
+          <div class="corner-order">
+            <div class="corner-item"><span class="corner-num">①</span><span><b class="lang-zh">左上角</b><b class="lang-en">Upper-left</b></span></div>
+            <div class="corner-item"><span class="corner-num">②</span><span><b class="lang-zh">右上角</b><b class="lang-en">Upper-right</b></span></div>
+            <div class="corner-item"><span class="corner-num">③</span><span><b class="lang-zh">左下角</b><b class="lang-en">Lower-left</b></span></div>
+            <div class="corner-item"><span class="corner-num">④</span><span><b class="lang-zh">右下角</b><b class="lang-en">Lower-right</b></span></div>
+          </div>
+
+          <div class="shape-grid" id="shapeGrid"></div>
+
+          <div class="example-box">
+            <div class="demo-char-wrap" aria-label="Example character 大">
+              <span class="demo-char">大</span>
+              <span class="corner-label tl">4</span>
+              <span class="corner-label tr">0</span>
+              <span class="corner-label bl">0</span>
+              <span class="corner-label br">3</span>
+            </div>
+            <div>
+              <b>
+                <span class="lang-zh">範例：大</span>
+                <span class="bilingual-sep">｜</span>
+                <span class="lang-en">Example: 大 (dà, big)</span>
+              </b>
+              <div class="example-code">4003</div>
+              <div class="lead" style="font-size:.88rem">
+                <span class="lang-zh">左上是交叉形「4」，右上與左下沒有另取筆形為「0」，右下是點捺形「3」。</span>
+                <span class="bilingual-sep"> </span>
+                <span class="lang-en">Upper-left is a crossing shape “4”; upper-right and lower-left are “0”; lower-right is a dot/downstroke shape “3”.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip">
+            <b>💡 <span class="lang-zh">初學提醒：</span><span class="lang-en">Beginner note:</span></b>
+            <span class="lang-zh">同一筆通常不重複取碼，外框字與複合字另有細則。本遊戲先使用常見、適合入門的漢字，並以四位基本碼練習。</span>
+            <span class="bilingual-sep"> </span>
+            <span class="lang-en">A stroke is generally not coded twice, and enclosure characters have extra rules. This beginner game uses curated common characters and the basic four-digit code.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card game-card" aria-live="polite">
+        <div id="startPanel" class="start-panel">
+          <div>
+            <div class="start-icon" aria-hidden="true">🔍</div>
+            <h2>
+              <span class="lang-zh">準備好看懂漢字的四個角嗎？</span>
+              <span class="bilingual-sep">｜</span>
+              <span class="lang-en">Ready to read the four corners?</span>
+            </h2>
+            <p>
+              <span class="lang-zh">每題會顯示一個漢字。請依序輸入左上、右上、左下、右下四個號碼。答題後可看到拼音、英文意思與正確答案。</span>
+              <span class="bilingual-sep"> </span>
+              <span class="lang-en">Each question shows one Chinese character. Enter the upper-left, upper-right, lower-left, and lower-right digits. After answering, review its pinyin, English meaning, and correct code.</span>
+            </p>
+            <div class="mode-row">
+              <button class="primary-btn" type="button" data-count="5">
+                <span class="lang-zh">開始 5 題</span><span class="bilingual-sep">｜</span><span class="lang-en">Start 5</span>
+              </button>
+              <button class="primary-btn" type="button" data-count="10">
+                <span class="lang-zh">開始 10 題</span><span class="bilingual-sep">｜</span><span class="lang-en">Start 10</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="gamePanel" class="game-panel">
+          <div class="game-status">
+            <div class="progress-track" aria-label="Progress"><div id="progressBar" class="progress-bar"></div></div>
+            <div id="questionChip" class="score-chip">1 / 5</div>
+            <div id="scoreChip" class="score-chip">Score 0</div>
+          </div>
+
+          <div class="character-stage">
+            <span id="character" class="character">大</span>
+            <span id="cornerTL" class="corner-seq tl">①</span>
+            <span id="cornerTR" class="corner-seq tr">②</span>
+            <span id="cornerBL" class="corner-seq bl">③</span>
+            <span id="cornerBR" class="corner-seq br">④</span>
+          </div>
+
+          <div class="word-info">
+            <div id="pinyin" class="pinyin">dà</div>
+            <div id="meaning" class="meaning">大 · big</div>
+          </div>
+
+          <div class="answer-label">
+            <span class="lang-zh">請依順序輸入四位號碼</span>
+            <span class="bilingual-sep">｜</span>
+            <span class="lang-en">Enter the four digits in order</span>
+          </div>
+
+          <div id="answerSlots" class="answer-slots"></div>
+          <div id="keypad" class="keypad"></div>
+
+          <div class="game-actions">
+            <button id="backBtn" class="secondary-btn" type="button">⌫ <span class="lang-zh">退一格</span><span class="lang-en">Back</span></button>
+            <button id="clearBtn" class="secondary-btn" type="button">↺ <span class="lang-zh">清除</span><span class="lang-en">Clear</span></button>
+            <button id="checkBtn" class="primary-btn" type="button">✓ <span class="lang-zh">確認答案</span><span class="lang-en">Check</span></button>
+          </div>
+
+          <div id="feedback" class="feedback"></div>
+          <button id="nextBtn" class="primary-btn next-btn" type="button">
+            <span class="lang-zh">下一題</span><span class="bilingual-sep">｜</span><span class="lang-en">Next</span>
+          </button>
+        </div>
+
+        <div id="resultPanel" class="result-panel">
+          <div class="result-content">
+            <div id="resultEmoji" class="result-emoji">🎉</div>
+            <div id="resultPercent" class="result-percent">100%</div>
+            <div id="resultMessage" class="result-message"></div>
+            <div id="resultSub" class="result-sub"></div>
+            <div class="mode-row">
+              <button id="playAgainBtn" class="primary-btn" type="button">
+                <span class="lang-zh">再玩一次</span><span class="bilingual-sep">｜</span><span class="lang-en">Play Again</span>
+              </button>
+              <button id="reviewBtn" class="secondary-btn" type="button">
+                <span class="lang-zh">複習筆形</span><span class="bilingual-sep">｜</span><span class="lang-en">Review Shapes</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <details class="card library">
+      <summary>
+        <span class="lang-zh">入門漢字庫與答案</span>
+        <span class="bilingual-sep">｜</span>
+        <span class="lang-en">Beginner Character Library and Codes</span>
+      </summary>
+      <div id="libraryGrid" class="library-grid"></div>
+    </details>
+
+    <footer>
+      <div>
+        <span class="lang-zh">資料設計：四角號碼基本規則；練習碼依 Unihan kFourCornerCode 索引整理。相同號碼可能對應多個漢字。</span>
+        <span class="bilingual-sep">｜</span>
+        <span class="lang-en">Codes are organized from the Unihan kFourCornerCode index. Different characters may share the same code.</span>
+      </div>
+      <div style="margin-top:6px">AI-Mind Care · Educational prototype · No analytics</div>
+    </footer>
+  </main>
+
+  <script>
+    "use strict";
+
+    const shapes = [
+      { d:"0", s:"亠", zh:"頭：點下帶橫", en:"Head: dot over line" },
+      { d:"1", s:"一", zh:"橫：橫筆", en:"Horizontal line" },
+      { d:"2", s:"丨丿", zh:"垂：直、撇", en:"Vertical / left-fall" },
+      { d:"3", s:"丶㇏", zh:"點：點、捺", en:"Dot / downstroke" },
+      { d:"4", s:"十乂", zh:"叉：兩筆交叉", en:"Crossing strokes" },
+      { d:"5", s:"丰", zh:"插：穿過多筆", en:"Piercing strokes" },
+      { d:"6", s:"口", zh:"方：方框", en:"Square / box" },
+      { d:"7", s:"乚", zh:"角：轉折、鉤", en:"Corner / hook" },
+      { d:"8", s:"八人", zh:"八：分開兩筆", en:"Split strokes" },
+      { d:"9", s:"小忄", zh:"小：小形筆組", en:"Small-shaped group" }
+    ];
+
+    const characters = [
+      { char:"一", code:"1000", pinyin:"yī", zh:"一", en:"one" },
+      { char:"二", code:"1010", pinyin:"èr", zh:"二", en:"two" },
+      { char:"三", code:"1010", pinyin:"sān", zh:"三", en:"three" },
+      { char:"王", code:"1010", pinyin:"wáng", zh:"王、君王", en:"king" },
+      { char:"天", code:"1043", pinyin:"tiān", zh:"天空、天", en:"sky / heaven" },
+      { char:"石", code:"1060", pinyin:"shí", zh:"石頭", en:"stone" },
+      { char:"水", code:"1223", pinyin:"shuǐ", zh:"水", en:"water" },
+
+      { char:"主", code:"0010", pinyin:"zhǔ", zh:"主要、主人", en:"main / master" },
+      { char:"立", code:"0010", pinyin:"lì", zh:"站立", en:"stand" },
+      { char:"文", code:"0040", pinyin:"wén", zh:"文字、文化", en:"writing / culture" },
+
+      { char:"心", code:"3300", pinyin:"xīn", zh:"心、心靈", en:"heart / mind" },
+      { char:"家", code:"3023", pinyin:"jiā", zh:"家、家庭", en:"home / family" },
+      { char:"安", code:"3040", pinyin:"ān", zh:"平安、安全", en:"peace / safe" },
+
+      { char:"十", code:"4000", pinyin:"shí", zh:"十", en:"ten" },
+      { char:"大", code:"4003", pinyin:"dà", zh:"大", en:"big" },
+      { char:"太", code:"4003", pinyin:"tài", zh:"太、非常", en:"too / very" },
+      { char:"土", code:"4010", pinyin:"tǔ", zh:"土地", en:"earth / soil" },
+      { char:"女", code:"4040", pinyin:"nǚ", zh:"女性、女", en:"woman / female" },
+      { char:"本", code:"4040", pinyin:"běn", zh:"根本、本來", en:"root / origin" },
+      { char:"木", code:"4090", pinyin:"mù", zh:"木、樹木", en:"wood / tree" },
+
+      { char:"中", code:"5000", pinyin:"zhōng", zh:"中間、中國的中", en:"middle / center" },
+      { char:"申", code:"5000", pinyin:"shēn", zh:"申明、表達", en:"state / extend" },
+      { char:"車", code:"5000", pinyin:"chē", zh:"車輛", en:"vehicle" },
+      { char:"夫", code:"5003", pinyin:"fū", zh:"丈夫、男子", en:"man / husband" },
+      { char:"央", code:"5003", pinyin:"yāng", zh:"中央", en:"center" },
+
+      { char:"口", code:"6000", pinyin:"kǒu", zh:"口、嘴巴", en:"mouth" },
+      { char:"日", code:"6010", pinyin:"rì", zh:"太陽、日子", en:"sun / day" },
+      { char:"目", code:"6010", pinyin:"mù", zh:"眼睛、目", en:"eye" },
+      { char:"國", code:"6015", pinyin:"guó", zh:"國家", en:"country" },
+      { char:"四", code:"6021", pinyin:"sì", zh:"四", en:"four" },
+      { char:"田", code:"6040", pinyin:"tián", zh:"田地", en:"field" },
+
+      { char:"人", code:"8000", pinyin:"rén", zh:"人", en:"person" },
+      { char:"入", code:"8000", pinyin:"rù", zh:"進入", en:"enter" },
+      { char:"八", code:"8000", pinyin:"bā", zh:"八", en:"eight" },
+      { char:"金", code:"8010", pinyin:"jīn", zh:"金、金屬", en:"gold / metal" },
+      { char:"全", code:"8010", pinyin:"quán", zh:"全部、完整", en:"whole / complete" },
+      { char:"今", code:"8020", pinyin:"jīn", zh:"今天、現在", en:"today / now" },
+
+      { char:"小", code:"9000", pinyin:"xiǎo", zh:"小", en:"small" },
+      { char:"少", code:"9020", pinyin:"shǎo", zh:"少、年少", en:"few / young" },
+      { char:"光", code:"9021", pinyin:"guāng", zh:"光、光明", en:"light" },
+      { char:"半", code:"9050", pinyin:"bàn", zh:"一半", en:"half" },
+      { char:"火", code:"9080", pinyin:"huǒ", zh:"火", en:"fire" },
+      { char:"米", code:"9090", pinyin:"mǐ", zh:"米、稻米", en:"rice" }
+    ];
+
+    const slotNames = [
+      {zh:"左上", en:"Upper-left"},
+      {zh:"右上", en:"Upper-right"},
+      {zh:"左下", en:"Lower-left"},
+      {zh:"右下", en:"Lower-right"}
+    ];
+
+    const state = {
+      lang: "zh",
+      count: 5,
+      questions: [],
+      index: 0,
+      score: 0,
+      input: [],
+      answered: false
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function renderShapes() {
+      $("shapeGrid").innerHTML = shapes.map(item => `
+        <div class="shape-card">
+          <div class="shape-digit">${item.d}</div>
+          <span class="shape-symbol">${item.s}</span>
+          <div class="shape-name">
+            <span class="lang-zh">${item.zh}</span>
+            <span class="lang-en">${item.en}</span>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderSlots() {
+      $("answerSlots").innerHTML = slotNames.map((name, i) => `
+        <div class="answer-slot ${i === state.input.length && !state.answered ? "active" : ""}">
+          <span class="slot-name">
+            ${i+1}. <span class="lang-zh">${name.zh}</span><span class="lang-en">${name.en}</span>
+          </span>
+          <span class="slot-value">${state.input[i] ?? "·"}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderKeypad() {
+      $("keypad").innerHTML = Array.from({length:10}, (_,i) => `
+        <button type="button" class="digit-btn" data-digit="${i}" aria-label="Digit ${i}">${i}</button>
+      `).join("");
+    }
+
+    function renderLibrary() {
+      $("libraryGrid").innerHTML = characters.map(item => `
+        <div class="library-item">
+          <span class="library-char">${item.char}</span>
+          <span class="library-code">${item.code}</span>
+          <span class="library-meta">${item.pinyin}</span>
+          <span class="library-meta lang-zh">${item.zh}</span>
+          <span class="library-meta lang-en">${item.en}</span>
+        </div>
+      `).join("");
+    }
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function setLanguage(lang) {
+      state.lang = lang;
+      document.body.classList.remove("lang-zh", "lang-en");
+      document.body.classList.add(`lang-${lang}`);
+      document.documentElement.lang = lang === "en" ? "en" : "zh-Hant";
+
+      document.querySelectorAll("[data-lang]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+
+      updateStatusText();
+      if (state.questions.length && state.index < state.questions.length) {
+        renderQuestionMeta();
+      }
+    }
+
+    function startGame(count) {
+      state.count = Number(count);
+      state.questions = shuffle(characters).slice(0, state.count);
+      state.index = 0;
+      state.score = 0;
+      state.input = [];
+      state.answered = false;
+
+      $("startPanel").style.display = "none";
+      $("resultPanel").classList.remove("active");
+      $("gamePanel").classList.add("active");
+      showQuestion();
+      window.scrollTo({ top: $("gamePanel").getBoundingClientRect().top + window.scrollY - 12, behavior: "smooth" });
+    }
+
+    function showQuestion() {
+      state.input = [];
+      state.answered = false;
+      $("feedback").className = "feedback";
+      $("feedback").innerHTML = "";
+      $("nextBtn").classList.remove("show");
+      $("checkBtn").disabled = false;
+      $("checkBtn").style.opacity = "1";
+      $("cornerTL").textContent = "①";
+      $("cornerTR").textContent = "②";
+      $("cornerBL").textContent = "③";
+      $("cornerBR").textContent = "④";
+      renderQuestionMeta();
+      renderSlots();
+      updateStatusText();
+    }
+
+    function renderQuestionMeta() {
+      const item = state.questions[state.index];
+      if (!item) return;
+      $("character").textContent = item.char;
+      $("pinyin").textContent = item.pinyin;
+
+      if (state.lang === "zh") {
+        $("meaning").textContent = item.zh;
+      } else if (state.lang === "en") {
+        $("meaning").textContent = item.en;
+      } else {
+        $("meaning").textContent = `${item.zh} · ${item.en}`;
+      }
+    }
+
+    function updateStatusText() {
+      if (!state.questions.length || state.index >= state.questions.length) return;
+      const n = state.index + 1;
+      $("questionChip").textContent = `${n} / ${state.count}`;
+      $("scoreChip").textContent =
+        state.lang === "zh" ? `得分 ${state.score}` : `Score ${state.score}`;
+      $("progressBar").style.width = `${(state.index / state.count) * 100}%`;
+    }
+
+    function addDigit(digit) {
+      if (state.answered || state.input.length >= 4) return;
+      state.input.push(String(digit));
+      $("feedback").className = "feedback";
+      renderSlots();
+    }
+
+    function backspace() {
+      if (state.answered) return;
+      state.input.pop();
+      $("feedback").className = "feedback";
+      renderSlots();
+    }
+
+    function clearInput() {
+      if (state.answered) return;
+      state.input = [];
+      $("feedback").className = "feedback";
+      renderSlots();
+    }
+
+    function checkAnswer() {
+      if (state.answered) return;
+      if (state.input.length !== 4) {
+        const msg = state.lang === "zh"
+          ? "請先輸入四位號碼。"
+          : "Please enter all four digits.";
+        showFeedback(false, msg, "");
+        return;
+      }
+
+      const item = state.questions[state.index];
+      const answer = state.input.join("");
+      const correct = answer === item.code;
+      state.answered = true;
+      $("cornerTL").textContent = item.code[0];
+      $("cornerTR").textContent = item.code[1];
+      $("cornerBL").textContent = item.code[2];
+      $("cornerBR").textContent = item.code[3];
+
+      if (correct) state.score += 1;
+
+      const orderTextZh = `左上 ${item.code[0]}、右上 ${item.code[1]}、左下 ${item.code[2]}、右下 ${item.code[3]}`;
+      const orderTextEn = `UL ${item.code[0]}, UR ${item.code[1]}, LL ${item.code[2]}, LR ${item.code[3]}`;
+
+      let message;
+      if (correct) {
+        message = state.lang === "zh"
+          ? "答對了！"
+          : "Correct!";
+      } else {
+        message = state.lang === "zh"
+          ? `這一題是 ${item.code}。`
+          : `The correct code is ${item.code}.`;
+      }
+
+      const detail = state.lang === "zh"
+        ? orderTextZh
+        : orderTextEn;
+
+      showFeedback(correct, message, detail, item.code);
+      $("checkBtn").disabled = true;
+      $("checkBtn").style.opacity = ".55";
+      $("nextBtn").classList.add("show");
+      updateStatusText();
+      $("progressBar").style.width = `${((state.index + 1) / state.count) * 100}%`;
+
+      if (correct) miniConfetti();
+    }
+
+    function showFeedback(correct, message, detail, code="") {
+      const feedback = $("feedback");
+      feedback.className = `feedback show ${correct ? "good" : "bad"}`;
+      feedback.innerHTML = `
+        <b>${message}</b>
+        ${code ? `<span class="feedback-code">${code}</span>` : ""}
+        ${detail ? `<span>${detail}</span>` : ""}
+      `;
+    }
+
+    function nextQuestion() {
+      if (!state.answered) return;
+      state.index += 1;
+      if (state.index >= state.count) {
+        finishGame();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function finishGame() {
+      $("gamePanel").classList.remove("active");
+      $("resultPanel").classList.add("active");
+
+      const percent = Math.round((state.score / state.count) * 100);
+      $("resultPercent").textContent = `${percent}%`;
+
+      let emoji, zh, en, subZh, subEn;
+      if (percent === 100) {
+        emoji = "🎆";
+        zh = "太棒了！四角觀察高手！";
+        en = "Excellent! Four-corner master!";
+        subZh = `答對 ${state.score} / ${state.count} 題，可以挑戰更多漢字。`;
+        subEn = `${state.score} out of ${state.count} correct. You are ready for more characters.`;
+        fireworks();
+      } else if (percent >= 80) {
+        emoji = "🌟";
+        zh = "表現很好！已掌握大部分規則。";
+        en = "Great work! You understand most of the patterns.";
+        subZh = `答對 ${state.score} / ${state.count} 題，再練一次就更熟練。`;
+        subEn = `${state.score} out of ${state.count} correct. One more round will make it easier.`;
+        confetti(70);
+      } else if (percent >= 60) {
+        emoji = "👍";
+        zh = "有進步！再留意四角順序。";
+        en = "Good progress! Watch the corner order carefully.";
+        subZh = `答對 ${state.score} / ${state.count} 題，建議先複習0–9筆形。`;
+        subEn = `${state.score} out of ${state.count} correct. Review the 0–9 shapes, then try again.`;
+      } else {
+        emoji = "🌱";
+        zh = "正在建立漢字觀察力，慢慢來就好。";
+        en = "You are building visual character skills—keep going.";
+        subZh = `答對 ${state.score} / ${state.count} 題，先從「口、日、人、大、小」開始練習。`;
+        subEn = `${state.score} out of ${state.count} correct. Start with 口, 日, 人, 大, and 小.`;
+      }
+
+      $("resultEmoji").textContent = emoji;
+      $("resultMessage").innerHTML = `<span class="lang-zh">${zh}</span><span class="bilingual-sep">｜</span><span class="lang-en">${en}</span>`;
+      $("resultSub").innerHTML = `<span class="lang-zh">${subZh}</span><span class="bilingual-sep">｜</span><span class="lang-en">${subEn}</span>`;
+    }
+
+    function resetToStart() {
+      state.questions = [];
+      state.index = 0;
+      state.score = 0;
+      state.input = [];
+      state.answered = false;
+      $("gamePanel").classList.remove("active");
+      $("resultPanel").classList.remove("active");
+      $("startPanel").style.display = "grid";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function miniConfetti() {
+      confetti(18);
+    }
+
+    function confetti(count = 60) {
+      const colors = ["#52745f","#b88633","#dc6f63","#6e8fb2","#8c6ca8","#7f9d65"];
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.setProperty("--x", `${(Math.random() - .5) * 240}px`);
+        piece.style.animationDuration = `${1.8 + Math.random() * 1.8}s`;
+        piece.style.animationDelay = `${Math.random() * .25}s`;
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 4000);
+      }
+    }
+
+    function fireworks() {
+      const colors = ["#f4c95d","#ec6f66","#6aa6c8","#88aa74","#a982bd"];
+      const centers = [
+        [25, 25], [73, 23], [50, 38], [22, 52], [78, 54]
+      ];
+
+      centers.forEach(([cx, cy], idx) => {
+        setTimeout(() => {
+          for (let i = 0; i < 26; i++) {
+            const p = document.createElement("span");
+            p.className = "firework";
+            const angle = (Math.PI * 2 * i) / 26;
+            const radius = 65 + Math.random() * 85;
+            p.style.left = `${cx}vw`;
+            p.style.top = `${cy}vh`;
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            p.style.setProperty("--x", `${Math.cos(angle) * radius}px`);
+            p.style.setProperty("--y", `${Math.sin(angle) * radius}px`);
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 1300);
+          }
+        }, idx * 210);
+      });
+      setTimeout(() => confetti(70), 550);
+    }
+
+    function bindEvents() {
+      document.querySelectorAll("[data-lang]").forEach(btn => {
+        btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+      });
+
+      document.querySelectorAll("[data-count]").forEach(btn => {
+        btn.addEventListener("click", () => startGame(btn.dataset.count));
+      });
+
+      $("keypad").addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-digit]");
+        if (btn) addDigit(btn.dataset.digit);
+      });
+
+      $("backBtn").addEventListener("click", backspace);
+      $("clearBtn").addEventListener("click", clearInput);
+      $("checkBtn").addEventListener("click", checkAnswer);
+      $("nextBtn").addEventListener("click", nextQuestion);
+      $("playAgainBtn").addEventListener("click", resetToStart);
+      $("reviewBtn").addEventListener("click", () => {
+        document.querySelector(".layout article:first-child").scrollIntoView({behavior:"smooth", block:"start"});
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!$("gamePanel").classList.contains("active")) return;
+        if (/^[0-9]$/.test(event.key)) addDigit(event.key);
+        if (event.key === "Backspace") backspace();
+        if (event.key === "Escape") clearInput();
+        if (event.key === "Enter") {
+          if (state.answered) nextQuestion();
+          else checkAnswer();
+        }
+      });
+    }
+
+    renderShapes();
+    renderSlots();
+    renderKeypad();
+    renderLibrary();
+    bindEvents();
+    setLanguage("zh");
+  </script>
+</body>
+</html>
