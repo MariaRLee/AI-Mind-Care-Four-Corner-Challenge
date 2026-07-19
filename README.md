@@ -1,1 +1,0 @@
-# AI-Mind-Care-Four-Corner-Challenge
