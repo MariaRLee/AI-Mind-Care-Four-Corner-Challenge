@@ -1,0 +1,11 @@
+{
+  "total_records": 700,
+  "unique_characters": 700,
+  "entry_tag": 27,
+  "basic_tag": 173,
+  "basic_cumulative_pool": 200,
+  "advanced_tag": 500,
+  "all_codes_four_digits": true,
+  "all_pinyin_present": true,
+  "all_english_glosses_present": true
+}
