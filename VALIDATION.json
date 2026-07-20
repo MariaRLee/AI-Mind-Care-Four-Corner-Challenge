@@ -1,0 +1,15 @@
+{
+  "version": "V2.1",
+  "total_records": 700,
+  "unique_characters": 700,
+  "entry_tag": 27,
+  "basic_tag": 173,
+  "basic_cumulative_pool": 200,
+  "advanced_tag": 500,
+  "bopomofo_present": true,
+  "history_dialog_present": true,
+  "history_button_present": true,
+  "bopomofo_search_present": true,
+  "shape_guide_has_10_items": true,
+  "corrected_zi": true
+}
