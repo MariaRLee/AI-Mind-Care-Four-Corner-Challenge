@@ -1,0 +1,17 @@
+AI-Mind Care 四角號碼漢字挑戰 V2.2 IP Protection Edition
+
+本次只更新：
+1. index.html
+2. README.md
+3. 新增 COPYRIGHT-AND-USE.md
+
+請保留原本的：
+- characters.js
+- DATA_SOURCES.md
+- HISTORY.md
+- 其他原有檔案
+
+沒有修改遊戲功能、版面、題庫、語言切換或手機設計。
+
+建議 Commit message：
+Upgrade to V2.2 IP Protection Edition
